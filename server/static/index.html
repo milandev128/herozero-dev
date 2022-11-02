@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HeroZero</title>
+</head>
+<body>
+   <h1>HeroZero</h1> 
+   <form id="register-form">
+    <input type="text" id="username" placeholder="username"/>
+    <input type="email" id="email" placeholder="email"/>
+    <input type="password" id="password" placeholder="password"/>
+
+    <input type="submit" value="submit" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.3/socket.io.js"></script>
+    <script src="client.js"></script>
+    <script>
+        const form = document.getElementById('register-form')
+        form.addEventListener('submit',registerUser)
+
+        async function registerUser(event)
+        {
+            console.log("function called")
+            
+            event.preventDefault()
+            const name = document.getElementById('username').value
+            const email= document.getElementById('email').value
+            const password = document.getElementById('password').value
+            const skin = "Default"
+            const level = "1"
+            const coins = "50"
+            const strength = "1"
+            const dodge = "1"
+
+
+            const result = await fetch('/register', {
+                method: 'POST',
+                headers:{
+                    'Content-Type':'application/json'
+                },
+                body:JSON.stringify({
+                    name,
+                    email,
+                    password,
+                    skin,
+                    level,
+                    coins,
+                    strength,
+                    dodge
+                })
+            }).then((res) => res.json())
+  
+            if(result.status === 'ok')
+            {
+                alert('success')
+            }
+            else
+            {
+                alert(result.error)
+            }
+           
+        }
+    </script>
+   </form>
+
+   
+</body>
+</html>

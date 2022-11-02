@@ -1,0 +1,10 @@
+PORT = 3000
+DATABASE_URL = "mongodb+srv://Ali:Alihamza!23@herozero.ppmbg98.mongodb.net/HeroZeroDatabase"
+
+JWT_SECRET_KEY = "dhsjf3423jhsdf3423df"
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USER = 'contact@geekyshows.com'
+EMAIL_PASS = '123456'
+EMAIL_FROM = 'contact@geekyshows.com'
