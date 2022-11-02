@@ -77,11 +77,17 @@ public class GameManager : PersistentSingleton<GameManager>
         username.text = PlayerPrefs.GetString("username");
         coins.text = PlayerPrefs.GetInt("coins") + "";
         level.text = PlayerPrefs.GetInt("level") + "";
-        strength.text = PlayerPrefs.GetInt("strength") + "";
-        dodge.text = PlayerPrefs.GetInt("dodge") + "";
         skin.sprite = skinSprites[PlayerPrefs.GetInt("skin")];
 
+        int tmpstrength = PlayerPrefs.GetInt("strength");
+        int tmpdodge = PlayerPrefs.GetInt("dodge");
         var itemList = JsonConvert.DeserializeObject<List<ItemRequest>>(PlayerPrefs.GetString("items"));
+
+        foreach(ItemRequest itemRequest in itemList) {
+            tmpstrength += itemRequest.strength;
+            tmpdodge += itemRequest.dodge;
+        }
+
         foreach(GameObject item in items) {
             bool flag = false;
             foreach(ItemRequest itemRequest in itemList) {
@@ -96,5 +102,8 @@ public class GameManager : PersistentSingleton<GameManager>
                 item.SetActive(false);
             }
         }
+
+        strength.text = tmpstrength.ToString();
+        dodge.text = tmpdodge.ToString();
     }
 }

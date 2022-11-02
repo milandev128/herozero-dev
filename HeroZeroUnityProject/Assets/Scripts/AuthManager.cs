@@ -109,7 +109,7 @@ namespace HeroZero
             {
                 Debug.Log(uwr.downloadHandler.text);
                 LoginResponse response = JsonConvert.DeserializeObject<LoginResponse>(uwr.downloadHandler.text);
-            
+                
                 if (response.status == "success")
                 {
                     Debug.Log("Login Successful");

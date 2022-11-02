@@ -7,6 +7,7 @@ using TMPro;
 public class Timer : MonoBehaviour
 {
     public static Timer Instance;
+    public Image loadingbar;
 
     public TextMeshProUGUI TimerText;
 
@@ -43,8 +44,12 @@ public class Timer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(isRunning)
+        if(isRunning) {
             TimerText.text = GetTImeValueFormated();
+            loadingbar.fillAmount = 1 - CurrentTime/MaxTime;
+        } else {
+            loadingbar.fillAmount = 0;
+        }
     }
 
     public void ResetTimer()
@@ -83,6 +88,8 @@ public class Timer : MonoBehaviour
             isRunning = true;
         CurrentTime = startTime;
         MaxTime = startTime;
+        loadingbar.fillAmount = 0;
+        loadingbar.gameObject.SetActive(true);
         TimerText.text = GetTImeValueFormated();
     }
 
@@ -92,6 +99,8 @@ public class Timer : MonoBehaviour
         {
             CurrentTime = MaxTime;
             isRunning = false;
+            loadingbar.fillAmount = 0;
+            loadingbar.gameObject.SetActive(false);
             CancelInvoke("TimerTickMS");
         }
 

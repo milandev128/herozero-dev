@@ -4,7 +4,7 @@ const connectDB = async () => {
   
   try {
     let url = "";
-    console.log(process.env.NODE_ENV)
+    
     if (process.env.NODE_ENV === 'production') {
         url = process.env.MONGO_URI;
     } else {
