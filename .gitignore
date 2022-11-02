@@ -74,3 +74,4 @@ HeroZeroUnityProject/[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/*/*.bin*
 # Temporary auto-generated Android Assets
 HeroZeroUnityProject/[Aa]ssets/[Ss]treamingAssets/aa.meta
 HeroZeroUnityProject/[Aa]ssets/[Ss]treamingAssets/aa/*
+server/.env

@@ -1,11 +1,16 @@
 import mongoose from 'mongoose';
-//const moongose = require('mongoose')
 
 const connectDB = async () => {
   
   try {
-   
-    const url = "mongodb://localhost:27017/HeroZeroDatabase"
+    let url = "";
+    console.log(process.env.NODE_ENV)
+    if (process.env.NODE_ENV === 'production') {
+        url = process.env.MONGO_URI;
+    } else {
+        url = "mongodb://localhost:27017/HeroZeroDatabase";
+    }
+
     await mongoose.connect(url ,{useNewUrlParser: true,useUnifiedTopology : true});
     console.log('DataBase Connected Successfully...')
   } catch (error) {

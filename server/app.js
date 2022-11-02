@@ -13,11 +13,13 @@ import jwt from 'jsonwebtoken'
 import passport from 'passport';
 import passportConfig from './config/passport.js';
 import SocketServer from './socket.js';
+import dotenv from 'dotenv';
 
 const app = express()
 const port = 3000
 const server = http.createServer(app);
 
+dotenv.config();
 SocketServer.getInstance(server);
 
 // CORS Policy
