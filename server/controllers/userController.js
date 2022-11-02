@@ -98,6 +98,7 @@ class UserController {
         });
       } else {
         user.items.push(req.body);
+        user.coins -= 20;
         await user.save();
         return res.json({ 
           status: "success", 
