@@ -21,11 +21,11 @@ class SocketServer {
 
   createSocketServer(server) {
     console.log('Socket server running...');
-    // this.io = new Server(server, {
-    //   cors: {
-    //     origin: "http://localhost:3000",
-    //   },
-    // });
+    this.io = new Server(server, {
+      cors: {
+        origin: "http://localhost:3000",
+      },
+    });
     this.playerlist = [];
     this.runSocketServer();
   }

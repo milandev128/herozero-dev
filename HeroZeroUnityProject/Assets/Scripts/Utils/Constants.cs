@@ -10,4 +10,3 @@ namespace Utils
         public static string secret = "";
     }
 }
-
