@@ -40,5 +40,5 @@ app.use(bodyParser.json())
 app.use('/api', userRoutes);
 
 server.listen(port, (req , res) => {
-  console.log(`Server listening at http://localhost:${port}`)
+  console.log(`Server listening on ${port}`)
 })
