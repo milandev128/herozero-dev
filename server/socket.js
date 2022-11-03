@@ -23,7 +23,7 @@ class SocketServer {
     console.log('Socket server running...');
     this.io = new Server(server, {
       cors: {
-        origin: "http://localhost:3000",
+        origin: "http://localhost:3001",
       },
     });
     this.playerlist = [];
