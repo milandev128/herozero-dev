@@ -26,6 +26,7 @@ const userSchema = new mongoose.Schema({
       },
     },
   ],
+  starttime: { type: Date }
 })
 
 // Model

@@ -111,7 +111,7 @@ class UserController {
     }
   }
 
-  static completeMission = async (req, res) => {
+  static startMission = async (req, res) => {
     let user = req.user;
     try{
       if(user.level == 2) {
@@ -120,7 +120,44 @@ class UserController {
           message: "You already finished this mission."
         });
       } else {
+        console.log('Start mission successfully');
+        user.starttime = new Date();
+        await user.save();
+        return res.json({ 
+          status: "success",
+          message: "Start mission successfully."
+        });
+      }
+    } catch(error) {
+      console.log(error);
+      return res.json({ status: "failed", message: "Unable to start mission" })
+    }
+  }
+
+  static completeMission = async (req, res) => {
+    let user = req.user;
+    try{
+      if(user.level == 2) {
+        return res.json({ 
+          status: "failed", 
+          message: "You already finished this mission."
+        });
+      } else if(!user.starttime){
+        return res.json({ 
+          status: "failed", 
+          message: "Mission was not started."
+        });
+      } else {
+        var time = (new Date().getTime() - user.starttime.getTime());
+
+        if(time < 30 * 1000) {
+          return res.json({ 
+            status: "failed", 
+            message: "Mission was not completed."
+          });
+        }
         user.level = 2
+        user.starttime = null;
         await user.save();
         return res.json({ 
           status: "success", 

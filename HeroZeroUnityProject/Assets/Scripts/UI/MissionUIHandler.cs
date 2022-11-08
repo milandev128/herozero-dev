@@ -27,10 +27,8 @@ public class MissionUIHandler : MonoBehaviour {
     
     public void StartMission()
     {
-        timerAndLoadingBar.SetActive(true);
-        missionStartButton.SetActive(false);
-        missionCancelButton.SetActive(true);
-        Timer.Instance.StartTimer(1800);
+        GameManager.Instance.loadingIcon.SetActive(true);
+        StartCoroutine(SendStartMissionRequest());
     }
 
     public void initPanel()
@@ -72,6 +70,38 @@ public class MissionUIHandler : MonoBehaviour {
     {
         GameManager.Instance.loadingIcon.SetActive(true);
         StartCoroutine(SendCompleteMissionRequest());
+    }
+
+    IEnumerator SendStartMissionRequest()
+    {
+        using (UnityWebRequest request = UnityWebRequest.Get(Constants.baseUrl + "/startmission"))
+        {
+            string token = PlayerPrefs.GetString("token");
+            request.SetRequestHeader("Content-Type", "application/json");
+            request.SetRequestHeader("Authorization", "Bearer " + token);
+
+            yield return request.Send();
+
+            if (request.isNetworkError || request.isHttpError)
+            {
+                Debug.Log(request.error);
+            }
+            else
+            {
+                APIResponse response = JsonConvert.DeserializeObject<APIResponse>(request.downloadHandler.text);
+
+                if(response.status == "success") {
+                    Debug.Log("Start Mission Successfully");
+                    timerAndLoadingBar.SetActive(true);
+                    missionStartButton.SetActive(false);
+                    missionCancelButton.SetActive(true);
+                    Timer.Instance.StartTimer(1800);
+                } else {
+                    Debug.Log("Failed: " + response.message);
+                }
+            }
+        }
+        GameManager.Instance.loadingIcon.SetActive(false);
     }
 
     IEnumerator SendCompleteMissionRequest()
